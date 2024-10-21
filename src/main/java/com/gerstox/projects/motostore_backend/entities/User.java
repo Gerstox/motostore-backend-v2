@@ -1,11 +1,16 @@
 package com.gerstox.projects.motostore_backend.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,8 +36,35 @@ public class User {
   @Column(nullable = false)
   private String password;
 
+  @Column(nullable = false, columnDefinition = "boolean default true")
+  private Boolean enabled;
+
+  @Transient private boolean admin;
+
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  private Set<Role> roles;
+
+  @PrePersist
+  public void prePersist() {
+    if (enabled == null) {
+      enabled = true;
+    }
+  }
+
   @Override
   public String toString() {
-    return "{ id=" + id + ", username=" + username + ", password=" + password + "}";
+    return "{ id="
+        + id
+        + ", username="
+        + username
+        + ", password="
+        + password
+        + ", enabled="
+        + enabled
+        + ", admin="
+        + admin
+        + ", roles="
+        + roles
+        + " }";
   }
 }
