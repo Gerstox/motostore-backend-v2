@@ -40,7 +40,16 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
     String header = request.getHeader(HEADER_AUTHORIZATION);
 
     if (header == null || !header.startsWith(PREFIX_TOKEN)) {
-      chain.doFilter(request, response);
+      
+      Map<String, Object> bodyError = new HashMap<>();
+      bodyError.put("error", "Acceso denegado.");
+      bodyError.put("message", "Por favor, proporciona un token válido.");
+      bodyError.put("status", HttpStatus.UNAUTHORIZED.value());
+
+      response.getWriter().write(new ObjectMapper().writeValueAsString(bodyError));
+      response.setContentType(CONTENT_TYPE);
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      // chain.doFilter(request, response);
       return;
     }
 
@@ -60,13 +69,15 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
                       authoritiesClaims.toString().getBytes(), SimpleGrantedAuthority[].class));
 
       UsernamePasswordAuthenticationToken authenticationToken =
-          new UsernamePasswordAuthenticationToken(username, authorities);
+          new UsernamePasswordAuthenticationToken(username, null, authorities);
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);
       chain.doFilter(request, response);
+
     } catch (JwtException e) {
-      Map<String, String> body = new HashMap<>();
-      body.put("error", e.getMessage());
+      Map<String, Object> body = new HashMap<>();
+      body.put("error", "JWT alterado.");
       body.put("message", "El token JWT es inválido");
+      body.put("status", HttpStatus.UNAUTHORIZED.value());
 
       response.getWriter().write(new ObjectMapper().writeValueAsString(body));
       response.setContentType(CONTENT_TYPE);

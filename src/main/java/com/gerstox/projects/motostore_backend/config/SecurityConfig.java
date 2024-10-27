@@ -47,7 +47,6 @@ public class SecurityConfig {
             authRequest ->
                 authRequest
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/login").permitAll()
                 .anyRequest().authenticated())
         .addFilter(jwtAuthenticationFilter)
         .addFilter(new JwtValidationFilter(authenticationManager()))
