@@ -39,10 +39,17 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+    JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager());
+    jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
+
     return http.authorizeHttpRequests(
             authRequest ->
-                authRequest.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
-        .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                authRequest
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/login").permitAll()
+                .anyRequest().authenticated())
+        .addFilter(jwtAuthenticationFilter)
         .addFilter(new JwtValidationFilter(authenticationManager()))
         .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.configurationSource(configurationSource()))
