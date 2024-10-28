@@ -1,6 +1,5 @@
 package com.gerstox.projects.motostore_backend.controllers;
 
-import com.gerstox.projects.motostore_backend.dtos.UserLoginDTO;
 import com.gerstox.projects.motostore_backend.dtos.UserRegisterDTO;
 import com.gerstox.projects.motostore_backend.services.AuthService;
 import com.gerstox.projects.motostore_backend.utils.DataValidation;
@@ -30,16 +29,5 @@ public class AuthController {
 
     service.register(user);
     return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
-  }
-
-  @PostMapping("/login")
-  public ResponseEntity<?> login(@Valid @RequestBody UserLoginDTO user, BindingResult result) {
-
-    if (result.hasFieldErrors()) {
-      return DataValidation.validateDTO(result);
-    }
-
-    // service.login(user);
-    return ResponseEntity.ok("JWT token");
   }
 }

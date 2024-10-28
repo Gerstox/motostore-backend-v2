@@ -41,7 +41,7 @@ public class User {
 
   @Transient private boolean admin;
 
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @ManyToMany(cascade = {CascadeType.MERGE})
   private Set<Role> roles;
 
   @PrePersist

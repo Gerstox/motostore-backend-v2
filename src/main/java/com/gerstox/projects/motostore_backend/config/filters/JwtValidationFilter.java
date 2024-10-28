@@ -49,7 +49,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
       response.getWriter().write(new ObjectMapper().writeValueAsString(bodyError));
       response.setContentType(CONTENT_TYPE);
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
-      // chain.doFilter(request, response);
+      chain.doFilter(request, response);
       return;
     }
 
