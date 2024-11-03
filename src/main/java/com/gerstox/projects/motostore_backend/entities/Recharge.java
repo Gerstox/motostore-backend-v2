@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,9 +27,11 @@ public class Recharge {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotEmpty
   @Column(nullable = false, columnDefinition = "varchar(100) default 'danlipagos'")
   private String provider;
 
+  @NotEmpty
   @Column(nullable = false)
   private String name;
 
@@ -37,6 +41,7 @@ public class Recharge {
   @Column(nullable = true)
   private String image;
 
+  @NotNull
   @Column(nullable = false, columnDefinition = "bit(1) default 1")
   private Boolean status;
 }

@@ -1,6 +1,7 @@
 package com.gerstox.projects.motostore_backend.services.impl;
 
 import com.gerstox.projects.motostore_backend.entities.Recharge;
+import com.gerstox.projects.motostore_backend.entities.Streaming;
 import com.gerstox.projects.motostore_backend.repositories.RechargeRepository;
 import com.gerstox.projects.motostore_backend.services.RechargeService;
 import java.util.Optional;
@@ -61,14 +62,16 @@ public class RechargeServiceImpl implements RechargeService {
   public Optional<Recharge> delete(Integer id) {
     Optional<Recharge> rechargeOptional = rechargeRepository.findById(id);
 
-    if (rechargeOptional.isEmpty()) {
-      System.out.println("ERROR: El servicio no existe.");
-    }
-
-    Recharge rechargeDB = rechargeOptional.orElseThrow();
-
-    rechargeRepository.delete(rechargeDB);
+    rechargeOptional.ifPresent(rechargeDB -> {
+      rechargeRepository.delete(rechargeDB);
+    });
 
     return rechargeOptional;
+  }
+
+  @Transactional
+  @Override
+  public Boolean existsById(Integer id) {
+    return rechargeRepository.existsById(id);
   }
 }

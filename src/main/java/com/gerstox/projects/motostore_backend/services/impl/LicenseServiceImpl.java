@@ -1,6 +1,7 @@
 package com.gerstox.projects.motostore_backend.services.impl;
 
 import com.gerstox.projects.motostore_backend.entities.License;
+import com.gerstox.projects.motostore_backend.entities.Recharge;
 import com.gerstox.projects.motostore_backend.repositories.LicenseRepository;
 import com.gerstox.projects.motostore_backend.services.LicenseService;
 import java.util.Optional;
@@ -61,14 +62,16 @@ public class LicenseServiceImpl implements LicenseService {
   public Optional<License> delete(Integer id) {
     Optional<License> licenseOptional = licenseRepository.findById(id);
 
-    if (licenseOptional.isEmpty()) {
-      System.out.println("ERROR: El servicio no existe.");
-    }
-
-    License licenseDB = licenseOptional.orElseThrow();
-
-    licenseRepository.delete(licenseDB);
+    licenseOptional.ifPresent(rechargeDB -> {
+      licenseRepository.delete(rechargeDB);
+    });
 
     return licenseOptional;
+  }
+
+  @Transactional
+  @Override
+  public Boolean existsById(Integer id) {
+    return licenseRepository.existsById(id);
   }
 }

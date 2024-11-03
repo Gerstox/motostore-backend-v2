@@ -63,14 +63,16 @@ public class StreamingServiceImpl implements StreamingService {
   public Optional<Streaming> delete(Integer id) {
     Optional<Streaming> streamingOptional = streamingRepository.findById(id);
 
-    if (streamingOptional.isEmpty()) {
-      System.out.println("ERROR: El servicio no existe.");
-    }
-
-    Streaming streamingDB = streamingOptional.orElseThrow();
-
-    streamingRepository.delete(streamingDB);
+    streamingOptional.ifPresent(streamingDB -> {
+      streamingRepository.delete(streamingDB);
+    });
 
     return streamingOptional;
+  }
+
+  @Transactional
+  @Override
+  public Boolean existsById(Integer id) {
+    return streamingRepository.existsById(id);
   }
 }

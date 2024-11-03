@@ -15,4 +15,6 @@ public interface StreamingService {
   public Optional<Streaming> update(Integer id, Streaming streaming);
 
   public Optional<Streaming> delete(Integer id);
+
+  public Boolean existsById(Integer id);
 }

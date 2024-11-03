@@ -15,4 +15,6 @@ public interface LicenseService {
   public Optional<License> update(Integer id, License license);
 
   public Optional<License> delete(Integer id);
+
+  public Boolean existsById(Integer id);
 }

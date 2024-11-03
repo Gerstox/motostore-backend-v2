@@ -15,4 +15,6 @@ public interface RechargeService {
   public Optional<Recharge> update(Integer id, Recharge recharge);
 
   public Optional<Recharge> delete(Integer id);
+
+  public Boolean existsById(Integer id);
 }

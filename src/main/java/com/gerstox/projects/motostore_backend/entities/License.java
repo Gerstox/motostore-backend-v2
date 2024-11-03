@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +26,7 @@ public class License {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotEmpty
   @Column(nullable = false)
   private String name;
 
@@ -31,9 +34,11 @@ public class License {
   private String image;
   private Integer duration;
   
+  @NotNull
   @Column(nullable = false)
   private Double price;
 
+  @NotNull
   @Column(nullable = false, columnDefinition = "bit(1) default 1")
   private Boolean status;
 }

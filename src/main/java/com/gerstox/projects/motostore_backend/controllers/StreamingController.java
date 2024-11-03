@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,7 @@ public class StreamingController {
   }
 
   @PostMapping
-  @PreAuthorize(value = "Denegado")
+  @PreAuthorize(value = "'Denegado'")
   public ResponseEntity<?> save(@Valid @RequestBody Streaming streaming, BindingResult result) {
 
     if (result.hasFieldErrors()) {
@@ -69,5 +70,17 @@ public class StreamingController {
       return ResponseEntity.status(HttpStatus.OK).body(streamingOptional.orElseThrow());
     }
     return ResponseEntity.notFound().build();
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<?> delete(@PathVariable("id") int id) {
+
+    Optional<Streaming> streamingOptional = streamingService.delete(id);
+
+    if (streamingOptional.isPresent()) {
+      return ResponseEntity.ok(streamingOptional.orElseThrow());
+    }
+
+    return ResponseEntity.badRequest().build();
   }
 }
