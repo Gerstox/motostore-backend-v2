@@ -25,7 +25,7 @@ public class StreamingServiceImpl implements StreamingService {
 
   @Transactional(readOnly = true)
   @Override
-  public Optional<Streaming> findById(Integer id) {
+  public Optional<Streaming> findById(Long id) {
     return streamingRepository.findById(id);
   }
 
@@ -38,7 +38,7 @@ public class StreamingServiceImpl implements StreamingService {
 
   @Transactional
   @Override
-  public Optional<Streaming> update(Integer id, Streaming streaming) {
+  public Optional<Streaming> update(Long id, Streaming streaming) {
     Optional<Streaming> streamingOptional = streamingRepository.findById(id);
 
     if (streamingOptional.isEmpty()) {
@@ -60,7 +60,7 @@ public class StreamingServiceImpl implements StreamingService {
 
   @Transactional
   @Override
-  public Optional<Streaming> delete(Integer id) {
+  public Optional<Streaming> delete(Long id) {
     Optional<Streaming> streamingOptional = streamingRepository.findById(id);
 
     streamingOptional.ifPresent(streamingDB -> {
@@ -70,9 +70,9 @@ public class StreamingServiceImpl implements StreamingService {
     return streamingOptional;
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
-  public Boolean existsById(Integer id) {
+  public Boolean existsById(Long id) {
     return streamingRepository.existsById(id);
   }
 }

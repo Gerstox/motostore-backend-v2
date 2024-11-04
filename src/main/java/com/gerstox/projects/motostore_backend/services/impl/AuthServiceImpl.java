@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
         .roles(Set.of(role))
         .build();
 
-        userRepository.save(user);
+        User userDB = userRepository.save(user);
 
         UserProfile profile = UserProfile
         .builder()
@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
         profileRepository.save(profile);
 
         System.out.println(userRegister);
-        return null;
+        return userDB;
     }
 
 }

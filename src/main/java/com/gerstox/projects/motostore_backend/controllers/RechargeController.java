@@ -37,7 +37,7 @@ public class RechargeController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> findById(@PathVariable("id") int id) {
+  public ResponseEntity<?> findById(@PathVariable("id") Long id) {
 
     Optional<Recharge> rechargeOptional = rechargeService.findById(id);
 
@@ -61,7 +61,7 @@ public class RechargeController {
 
   @PutMapping("/{id}")
   public ResponseEntity<?> updateProvider(
-      @PathVariable("id") int id, @Valid @RequestBody Recharge recharge, BindingResult result) {
+      @PathVariable("id") Long id, @Valid @RequestBody Recharge recharge, BindingResult result) {
 
     if (result.hasFieldErrors()) {
       return DataValidation.validateDTO(result);
@@ -76,7 +76,7 @@ public class RechargeController {
   }
 
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") int id) {
+  public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 
     Optional<Recharge> rechargeOptional = rechargeService.delete(id);
 

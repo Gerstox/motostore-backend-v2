@@ -8,13 +8,13 @@ public interface RechargeService {
 
   public Page<Recharge> findAll(Integer page, Integer elements);
 
-  public Optional<Recharge> findById(Integer id);
+  public Optional<Recharge> findById(Long id);
 
   public Recharge save(Recharge recharge);
 
-  public Optional<Recharge> update(Integer id, Recharge recharge);
+  public Optional<Recharge> update(Long id, Recharge recharge);
 
-  public Optional<Recharge> delete(Integer id);
+  public Optional<Recharge> delete(Long id);
 
-  public Boolean existsById(Integer id);
+  public Boolean existsById(Long id);
 }

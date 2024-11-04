@@ -1,47 +1,57 @@
 package com.gerstox.projects.motostore_backend.entities;
 
+import com.gerstox.projects.motostore_backend.enums.ServiceType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "recharges")
-public class Recharge {
+public class Recharge extends Service {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  // @Id
+  // @GeneratedValue(strategy = GenerationType.IDENTITY)
+  // private Long id;
 
   @NotEmpty
   @Column(nullable = false, columnDefinition = "varchar(100) default 'danlipagos'")
   private String provider;
 
-  @NotEmpty
-  @Column(nullable = false)
-  private String name;
+  // @NotEmpty
+  // @Column(nullable = false)
+  // private String name;
 
-  @Column(nullable = true)
-  private String description;
+  // @Column(nullable = true)
+  // private String description;
 
-  @Column(nullable = true)
-  private String image;
+  // @Column(nullable = true)
+  // private String image;
 
-  @NotNull
-  @Column(nullable = false, columnDefinition = "bit(1) default 1")
-  private Boolean status;
+  // @NotNull
+  // @Column(nullable = false, columnDefinition = "bit(1) default 1")
+  // private Boolean status;
+
+  public Recharge() {
+    super();
+  }
+
+  public Recharge(
+      Long id,
+      ServiceType serviceType,
+      String name,
+      String description,
+      String image,
+      Boolean status,
+      String provider) {
+    super(id, serviceType, name, description, image, status);
+    this.provider = provider;
+  }
 }

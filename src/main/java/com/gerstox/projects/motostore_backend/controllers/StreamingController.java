@@ -34,7 +34,7 @@ public class StreamingController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> findById(@PathVariable("id") int id) {
+  public ResponseEntity<?> findById(@PathVariable("id") Long id) {
 
     Optional<Streaming> streamingOptional = streamingService.findById(id);
 
@@ -58,7 +58,7 @@ public class StreamingController {
 
   @PutMapping("/{id}")
   public ResponseEntity<?> updateProvider(
-      @PathVariable("id") int id, @Valid @RequestBody Streaming streaming, BindingResult result) {
+      @PathVariable("id") Long id, @Valid @RequestBody Streaming streaming, BindingResult result) {
 
     if (result.hasFieldErrors()) {
       return DataValidation.validateDTO(result);
@@ -73,7 +73,7 @@ public class StreamingController {
   }
 
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") int id) {
+  public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 
     Optional<Streaming> streamingOptional = streamingService.delete(id);
 

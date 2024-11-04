@@ -1,44 +1,56 @@
 package com.gerstox.projects.motostore_backend.entities;
 
+import com.gerstox.projects.motostore_backend.enums.ServiceType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "licenses")
-public class License {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+public class License extends Service {
+  // @Id
+  // @GeneratedValue(strategy = GenerationType.IDENTITY)
+  // private Long id;
 
-  @NotEmpty
-  @Column(nullable = false)
-  private String name;
+  // @NotEmpty
+  // @Column(nullable = false)
+  // private String name;
 
-  private String description;
-  private String image;
+  // private String description;
+  // private String image;
   private Integer duration;
-  
+
   @NotNull
   @Column(nullable = false)
   private Double price;
 
-  @NotNull
-  @Column(nullable = false, columnDefinition = "bit(1) default 1")
-  private Boolean status;
+  // @NotNull
+  // @Column(nullable = false, columnDefinition = "bit(1) default 1")
+  // private Boolean status;
+
+  public License() {
+    super();
+  }
+
+  public License(
+      Long id,
+      ServiceType serviceType,
+      String name,
+      String description,
+      String image,
+      Boolean status,
+      Integer duration,
+      Double price) {
+    super(id, serviceType, name, description, image, status);
+    this.duration = duration;
+    this.price = price;
+  }
 }

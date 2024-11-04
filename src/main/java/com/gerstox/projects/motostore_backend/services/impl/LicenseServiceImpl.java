@@ -1,7 +1,6 @@
 package com.gerstox.projects.motostore_backend.services.impl;
 
 import com.gerstox.projects.motostore_backend.entities.License;
-import com.gerstox.projects.motostore_backend.entities.Recharge;
 import com.gerstox.projects.motostore_backend.repositories.LicenseRepository;
 import com.gerstox.projects.motostore_backend.services.LicenseService;
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class LicenseServiceImpl implements LicenseService {
 
   @Transactional(readOnly = true)
   @Override
-  public Optional<License> findById(Integer id) {
+  public Optional<License> findById(Long id) {
     return licenseRepository.findById(id);
   }
 
@@ -38,7 +37,7 @@ public class LicenseServiceImpl implements LicenseService {
 
   @Transactional
   @Override
-  public Optional<License> update(Integer id, License license) {
+  public Optional<License> update(Long id, License license) {
     Optional<License> licenseOptional = licenseRepository.findById(id);
 
     if (licenseOptional.isEmpty()) {
@@ -59,7 +58,7 @@ public class LicenseServiceImpl implements LicenseService {
 
   @Transactional
   @Override
-  public Optional<License> delete(Integer id) {
+  public Optional<License> delete(Long id) {
     Optional<License> licenseOptional = licenseRepository.findById(id);
 
     licenseOptional.ifPresent(rechargeDB -> {
@@ -71,7 +70,7 @@ public class LicenseServiceImpl implements LicenseService {
 
   @Transactional
   @Override
-  public Boolean existsById(Integer id) {
+  public Boolean existsById(Long id) {
     return licenseRepository.existsById(id);
   }
 }

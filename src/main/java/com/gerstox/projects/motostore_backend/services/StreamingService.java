@@ -8,13 +8,13 @@ public interface StreamingService {
 
   public Page<Streaming> findAll(Integer page, Integer elements);
 
-  public Optional<Streaming> findById(Integer id);
+  public Optional<Streaming> findById(Long id);
 
   public Streaming save(Streaming streaming);
 
-  public Optional<Streaming> update(Integer id, Streaming streaming);
+  public Optional<Streaming> update(Long id, Streaming streaming);
 
-  public Optional<Streaming> delete(Integer id);
+  public Optional<Streaming> delete(Long id);
 
-  public Boolean existsById(Integer id);
+  public Boolean existsById(Long id);
 }

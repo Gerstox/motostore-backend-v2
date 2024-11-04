@@ -1,7 +1,6 @@
 package com.gerstox.projects.motostore_backend.services.impl;
 
 import com.gerstox.projects.motostore_backend.entities.Recharge;
-import com.gerstox.projects.motostore_backend.entities.Streaming;
 import com.gerstox.projects.motostore_backend.repositories.RechargeRepository;
 import com.gerstox.projects.motostore_backend.services.RechargeService;
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class RechargeServiceImpl implements RechargeService {
 
   @Transactional(readOnly = true)
   @Override
-  public Optional<Recharge> findById(Integer id) {
+  public Optional<Recharge> findById(Long id) {
     return rechargeRepository.findById(id);
   }
 
@@ -38,7 +37,7 @@ public class RechargeServiceImpl implements RechargeService {
 
   @Transactional
   @Override
-  public Optional<Recharge> update(Integer id, Recharge recharge) {
+  public Optional<Recharge> update(Long id, Recharge recharge) {
     Optional<Recharge> rechargeOptional = rechargeRepository.findById(id);
 
     if (rechargeOptional.isEmpty()) {
@@ -59,7 +58,7 @@ public class RechargeServiceImpl implements RechargeService {
 
   @Transactional
   @Override
-  public Optional<Recharge> delete(Integer id) {
+  public Optional<Recharge> delete(Long id) {
     Optional<Recharge> rechargeOptional = rechargeRepository.findById(id);
 
     rechargeOptional.ifPresent(rechargeDB -> {
@@ -71,7 +70,7 @@ public class RechargeServiceImpl implements RechargeService {
 
   @Transactional
   @Override
-  public Boolean existsById(Integer id) {
+  public Boolean existsById(Long id) {
     return rechargeRepository.existsById(id);
   }
 }
